@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Todo from "./Todo";
 import TodoForm from "./TodoForm";
+import Todo from "./Todo";
 
 function TodoList() {
   const [todos, setTodos] = useState([]);
@@ -9,26 +9,26 @@ function TodoList() {
     if (!todo.text || /^\s*$/.test(todo.text)) {
       return;
     }
+
     const newTodos = [todo, ...todos];
 
     setTodos(newTodos);
-    console.log(todo, ...todos);
+    console.log(...todos);
   };
-  const updateTodo = (todoId, newValue) => {
+
+  const updateTodo = (id, newValue) => {
     if (!newValue.text || /^\s*$/.test(newValue.text)) {
       return;
     }
-
-    setTodos((prev) =>
-      prev.map((item) => (item.id === todoId ? newValue : item))
-    );
+    setTodos((prev) => prev.map((item) => (item.id === id ? newValue : item)));
   };
 
   const removeTodo = (id) => {
-    const removedArr = [...todos].filter((todo) => todo.id !== id);
+    const removeArr = [...todos].filter((todo) => todo.id !== id);
 
-    setTodos(removedArr);
+    setTodos(removeArr);
   };
+
   const completeTodo = (id) => {
     let updatedTodos = todos.map((todo) => {
       if (todo.id === id) {
@@ -40,8 +40,9 @@ function TodoList() {
   };
 
   return (
-    <>
-      <h1>What's the Plan for Today?</h1>
+    <div>
+      <h1 className="">What's the Plan for </h1>
+
       <TodoForm onSubmit={addTodo} />
       <Todo
         todos={todos}
@@ -49,7 +50,7 @@ function TodoList() {
         removeTodo={removeTodo}
         updateTodo={updateTodo}
       />
-    </>
+    </div>
   );
 }
 
